@@ -18,4 +18,10 @@ CREATE TABLE "urls" (
 	"visitCount" integer NOT NULL
 );
 
+CREATE TABLE "sections" (
+	"id" serial PRIMARY KEY,
+	"userId" integer NOT NULL REFERENCES "users"("id"),
+	"token" TEXT NOT NULL
+);
+
 -- Dados para as tabelas
