@@ -4,12 +4,13 @@ import { nanoid } from 'nanoid'
 export async function shortener(req, res){
     const {url} = req.body;
     const {authorization} = req.headers;
-    const token = authorization.replace("Bearer ", "");
 
-    if(!token){
+    if(!authorization){
         res.sendStatus(401);
         return;
     }
+
+    const token = authorization.replace("Bearer ", "");
 
     try{
         const section = await connection.query("SELECT * FROM sections WHERE token = $1", [token])
@@ -75,12 +76,13 @@ export async function redirect(req, res){
 export async function deleteUrl(req, res){
     const {id} = req.params;
     const {authorization} = req.headers;
-    const token = authorization.replace("Bearer ", "");
 
-    if(!token){
+    if(!authorization){
         res.sendStatus(401);
         return;
     }
+
+    const token = authorization.replace("Bearer ", "");
 
     try{
         const section = await connection.query("SELECT * FROM sections WHERE token = $1", [token])
