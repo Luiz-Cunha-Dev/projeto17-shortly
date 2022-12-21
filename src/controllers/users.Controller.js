@@ -27,8 +27,9 @@ export async function getUserData(req, res){
 
         const urls = await connection.query(`SELECT id, "shortUrl", url, "visitCount" FROM urls WHERE "userId" = $1`, [user.rows[0].id])
 
+        user.rows[0].visitCount = Number(user.rows[0].visitCount)
         user.rows[0].shortenedUrls = urls.rows
-        
+
         res.send(user.rows[0]).status(200)
 
     }catch(err){
