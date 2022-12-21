@@ -33,9 +33,22 @@ export async function shortener(req, res){
 }
 
 export async function searchUrl(req, res){
+    const {id} = req.params;
+
+    if(!id){
+        res.sendStatus(404)
+        return
+    }
 
     try{
+        const url = await connection.query(`SELECT id, "shortUrl", url FROM urls WHERE id = $1`, [id])
 
+        if(url.rows.length === 0){
+            res.sendStatus(404)
+            return
+        }
+
+        res.send(url.rows[0]).status(200)
 
     }catch(err){
         console.log(err);
