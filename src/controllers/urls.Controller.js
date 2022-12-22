@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid'
 import { getSectionByToken, insertNewShortUrl, getUrlById, getUrlByShortUrl, updateVisitCountFromUrls, getUserIdFromUrls, deleteUrlById } from "../repository/urls.repository.js";
-import dayjs from 'dayjs';
+
 
 export async function shortener(req, res){
     const {url} = req.body;
