@@ -15,7 +15,8 @@ CREATE TABLE "urls" (
 	"userId" integer NOT NULL REFERENCES "users"("id"),
 	"shortUrl" TEXT NOT NULL,
 	"url" TEXT NOT NULL,
-	"visitCount" integer NOT NULL
+	"visitCount" integer NOT NULL,
+	"createdAt" DATE NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE "sections" (

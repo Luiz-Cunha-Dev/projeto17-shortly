@@ -1,9 +1,9 @@
-import { connection } from "../database/db.js";
+import { getRankingList } from "../repository/ranking.repository.js";
 
 export async function getRanking(req, res){
 
     try{
-        const rankingList = await connection.query(`SELECT users.id, users.name, COUNT(urls."userId") AS "linksCount", SUM(urls."visitCount") AS "visitCount" FROM users LEFT JOIN urls ON users.id = urls."userId" GROUP BY users.id ORDER BY "visitCount" LIMIT 10`)
+        const rankingList = await getRankingList()
 
         rankingList.rows.forEach(i => {
             i.linksCount = Number(i.linksCount)

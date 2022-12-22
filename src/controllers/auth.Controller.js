@@ -1,12 +1,12 @@
-import { connection } from "../database/db.js";
 import bcrypt from "bcrypt";
 import { v4 as uuid } from "uuid";
+import { getUserByEmail, insertNewUser, insertNewSection } from "../repository/auth.repository.js";
 
 export async function signup(req, res){
     const {name, email, password} = req.body;
 
     try{
-        const registeredUser = await connection.query("SELECT * FROM users WHERE email = $1", [email])
+        const registeredUser = await getUserByEmail(email)
 
         if(registeredUser.rows.length !== 0){
             res.sendStatus(409)
@@ -15,7 +15,7 @@ export async function signup(req, res){
 
         const encryptedPassword = bcrypt.hashSync(password, 10);
 
-        await connection.query("INSERT INTO users (name, email, password) VALUES ($1, $2, $3)", [name, email, encryptedPassword])
+        await insertNewUser(name, email, encryptedPassword)
 
         res.sendStatus(201)
 
@@ -29,7 +29,7 @@ export async function signin(req, res){
     const {email, password} = req.body;
 
     try{
-        const user = await connection.query("SELECT * FROM users WHERE email = $1", [email])
+        const user = await getUserByEmail(email)
 
         if(user.rows.length === 0 || !bcrypt.compareSync(password, user.rows[0].password)){
             res.sendStatus(401)
@@ -38,7 +38,7 @@ export async function signin(req, res){
 
         const token = uuid();
 
-        await connection.query(`INSERT INTO sections ("userId", token) VALUES ($1, $2)`, [user.rows[0].id, token])
+        await insertNewSection(user.rows[0].id, token)
     
         res.send(token).status(200);
         
