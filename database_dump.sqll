@@ -1,0 +1,282 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.6
+-- Dumped by pg_dump version 14.5 (Ubuntu 14.5-0ubuntu0.22.04.1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA public;
+
+
+--
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
+
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: sections; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.sections (
+    id integer NOT NULL,
+    "userId" integer NOT NULL,
+    token text NOT NULL
+);
+
+
+--
+-- Name: sections_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.sections_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sections_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.sections_id_seq OWNED BY public.sections.id;
+
+
+--
+-- Name: urls; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.urls (
+    id integer NOT NULL,
+    "userId" integer NOT NULL,
+    "shortUrl" text NOT NULL,
+    url text NOT NULL,
+    "visitCount" integer NOT NULL,
+    "createdAt" date DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: urls_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.urls_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: urls_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.urls_id_seq OWNED BY public.urls.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.users (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    email text NOT NULL,
+    password text NOT NULL
+);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- Name: sections id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sections ALTER COLUMN id SET DEFAULT nextval('public.sections_id_seq'::regclass);
+
+
+--
+-- Name: urls id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.urls ALTER COLUMN id SET DEFAULT nextval('public.urls_id_seq'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Data for Name: sections; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+INSERT INTO public.sections VALUES (1, 1, '0e78fae0-af65-42b0-b010-637255b3b0d5');
+INSERT INTO public.sections VALUES (37, 12, 'ef61a7c4-14a3-4bbc-be56-d70d6d037042');
+
+
+--
+-- Data for Name: urls; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+INSERT INTO public.urls VALUES (1, 1, 'e0ydPM9r', 'https://www.google.com', 1, '2022-12-22');
+INSERT INTO public.urls VALUES (15, 2, '47EHZMrt', 'https://www.google.com', 0, '2022-12-23');
+INSERT INTO public.urls VALUES (16, 2, 'BPlFea4Q', 'https://www.youtube.com', 0, '2022-12-23');
+INSERT INTO public.urls VALUES (33, 11, 'ntGiIU0a', 'https://www.google.com', 12, '2022-12-23');
+INSERT INTO public.urls VALUES (17, 3, '3Sl97JQz', 'https://www.google.com', 8, '2022-12-23');
+INSERT INTO public.urls VALUES (19, 4, 'jvGzawOZ', 'https://stackoverflow.com/questions/1309841/how-to-order-by-a-sum-in-mysql', 4, '2022-12-23');
+INSERT INTO public.urls VALUES (20, 6, 'BzQ05LDc', 'https://www.google.com', 1, '2022-12-23');
+INSERT INTO public.urls VALUES (21, 6, 'fCIRECoq', 'https://www.youtube.com', 1, '2022-12-23');
+INSERT INTO public.urls VALUES (22, 7, 'Do1MSZKK', 'https://www.google.com', 0, '2022-12-23');
+INSERT INTO public.urls VALUES (23, 7, 'D0fGJ2Mn', 'https://www.youtube.com', 0, '2022-12-23');
+INSERT INTO public.urls VALUES (24, 7, 'LQvJprRQ', 'https://www.facebook.com', 0, '2022-12-23');
+INSERT INTO public.urls VALUES (25, 8, 'snaz5NVC', 'https://www.google.com', 0, '2022-12-23');
+INSERT INTO public.urls VALUES (26, 8, '0jKF24zd', 'https://www.webfx.com/web-development/glossary/http-status-codes/', 1, '2022-12-23');
+INSERT INTO public.urls VALUES (35, 12, 'OPXX-ad1', 'https://www.youtube.com', 5, '2022-12-23');
+INSERT INTO public.urls VALUES (34, 12, '_6HUzeqB', 'https://www.google.com', 7, '2022-12-23');
+INSERT INTO public.urls VALUES (27, 9, 'Xmf1sY6J', 'https://www.google.com/', 3, '2022-12-23');
+INSERT INTO public.urls VALUES (28, 9, '5wvb1Qrn', 'https://www.w3schools.com/', 3, '2022-12-23');
+INSERT INTO public.urls VALUES (29, 9, 'G95LlSBu', 'https://www.webfx.com/web-development/glossary/http-status-codes/', 3, '2022-12-23');
+INSERT INTO public.urls VALUES (30, 9, 'jIEHFIm1', 'https://www.youtube.com', 3, '2022-12-23');
+INSERT INTO public.urls VALUES (32, 10, 'VXmUXT50', 'https://www.youtube.com', 6, '2022-12-23');
+INSERT INTO public.urls VALUES (31, 10, 'rytgtNZU', 'https://www.google.com', 11, '2022-12-23');
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+INSERT INTO public.users VALUES (1, 'João', 'joao@driven.com.br', '$2b$10$IR1Q1fRX/gvpoBtNJkqusunkZB18AiQDr0W5kgzCCMoWnQS.EbXqK');
+INSERT INTO public.users VALUES (2, 'goku', 'goku@hotmail.com', '$2b$10$Kkt4eUhI3hoP.J2SgUC9fuVUEeI4jzVFOvd0Sq2qWY/N44x.zmyFG');
+INSERT INTO public.users VALUES (3, 'luiz', 'luiz@hotmail.com', '$2b$10$QGuvzDRW9q0qmLv48z8UZuLjqHH/oLFo52mTeqvkj6KTdV2haYrBW');
+INSERT INTO public.users VALUES (4, 'lary', 'lary@hotmail.com', '$2b$10$Cht0bGtz7MUVfGw/Lb3DRO/wPlmsOR0D74lo6X211VdMFwsxpwGJe');
+INSERT INTO public.users VALUES (5, 'felipe', 'felipe@hotmail.com', '$2b$10$ohc.dI98oHwtB1RbBB0NeucTAJAsRlwrehGtYdY1SrTSvvaOdD2nC');
+INSERT INTO public.users VALUES (6, 'igor', 'igor@hotmail.com', '$2b$10$90DyC4X1ZNRzDCnD/VJOruGUKzSVWpsQVsklhFoBfSNxEZP/DB3JW');
+INSERT INTO public.users VALUES (7, 'maria', 'maria@hotmail.com', '$2b$10$bYXhCUDlLinzxb.9ywjrgufbv14v/jiaPUsA3uwq1vKknWpZQsz5W');
+INSERT INTO public.users VALUES (8, 'gohan', 'gohan@hotmail.com', '$2b$10$SmeQCX/BLht9/eG3Y4peTerPfuslcJqvOM6FLcdlMXuzWyYWs35Vm');
+INSERT INTO public.users VALUES (9, 'thicode', 'thicode@hotmail.com', '$2b$10$/nqIXfi9AMNJkm5f9WxsMelra7e1NA6d1.9pBE2OvY6Gmgk2q2.Zu');
+INSERT INTO public.users VALUES (10, 'venyus', 'venyus@hotmail.com', '$2b$10$hCxTfUIIAtHE/C.BpyFWF.0X/6hUz3TS62ipV3XVhdIiG6wBHjXCC');
+INSERT INTO public.users VALUES (11, 'mrpink', 'mrpink@hotmail.com', '$2b$10$O1fVx.yb4bUZBtf/uDXod.vyso90lybwVPkwS5o9G9oDK50VPZuQG');
+INSERT INTO public.users VALUES (12, 'let', 'let@hotmail.com', '$2b$10$pjaYgBZhBfBNQ72KEMFt0e/O9JH7A6jUF4a9TH.fFDeBK0lnZ3jjS');
+
+
+--
+-- Name: sections_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.sections_id_seq', 37, true);
+
+
+--
+-- Name: urls_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.urls_id_seq', 35, true);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 12, true);
+
+
+--
+-- Name: sections sections_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sections
+    ADD CONSTRAINT sections_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: urls urls_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.urls
+    ADD CONSTRAINT urls_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sections sections_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sections
+    ADD CONSTRAINT "sections_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users(id);
+
+
+--
+-- Name: urls urls_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.urls
+    ADD CONSTRAINT "urls_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users(id);
+
+
+--
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: -
+--
+
+REVOKE ALL ON SCHEMA public FROM postgres;
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+GRANT ALL ON SCHEMA public TO luiz;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
