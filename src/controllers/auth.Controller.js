@@ -40,7 +40,7 @@ export async function signin(req, res){
 
         await insertNewSection(user.rows[0].id, token)
     
-        res.send(token).status(200);
+        res.send({token}).status(200);
         
     }catch(err){
         console.log(err);
